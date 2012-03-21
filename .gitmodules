@@ -1,0 +1,3 @@
+[submodule "environments/dev/modules/ssh"]
+	path = environments/dev/modules/ssh
+	url = https://github.com/saz/puppet-ssh
