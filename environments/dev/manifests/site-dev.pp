@@ -26,6 +26,12 @@ node router {
       target  => "ACCEPT",
       source  => "loc",
       dest    => "\$FW";
+    "www-client-router.caedev.local":
+      comment => "# Allow http access from router (for package installation)",
+      macro   => "Web",
+      target  => "ACCEPT",
+      source  => "\$FW",
+      dest    => "net";
   }
 }
 
