@@ -4,7 +4,7 @@ node router {
   include ssh
   include root_rsa_id
   include shorewall
-  shorewall::rule { "puppetd-router.caedev.local":
+  shorewall::action { "puppetd-router.caedev.local":
     comment      => "Allow puppetd traffic",
     action       => "ACCEPT",
     source       => "\$FW",

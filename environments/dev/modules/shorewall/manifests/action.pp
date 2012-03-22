@@ -1,4 +1,4 @@
-define shorewall::rule (
+define shorewall::action (
   $comment,
   $action,
   $source,
@@ -8,7 +8,7 @@ define shorewall::rule (
   $source_ports
 ) {
     file {
-      "shorewall_rule_${name}":
+      "shorewall_action_${name}":
         path    => "/etc/shorewall/conf.d/${name}.conf",
         content => "# ${comment}\n${action} ${source} ${dest} ${proto} ${dest_ports} ${source_ports}\n",
         owner   => root,
