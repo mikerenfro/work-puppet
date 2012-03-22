@@ -13,6 +13,20 @@ node router {
     source_ports => "-",
     dest_ports   => "8140:8141"
   }
+  shorewall::macro {
+    "dns-router.caedev.local":
+      comment => "# Allow DNS server on router",
+      macro   => "DNS",
+      target  => "ACCEPT",
+      source  => "loc",
+      dest    => "\$FW";
+    "tftpd-router.caedev.local":
+      comment => "# Allow TFTP server on router",
+      macro   => "TFTP",
+      target  => "ACCEPT",
+      source  => "loc",
+      dest    => "\$FW";
+  }
 }
 
 node gold {
