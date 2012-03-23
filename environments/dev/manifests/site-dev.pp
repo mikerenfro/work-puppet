@@ -32,6 +32,12 @@ node router {
       target  => "ACCEPT",
       source  => "\$FW",
       dest    => "net";
+    "ssh-router.caedev.local":
+      comment => "# Allow ssh access from internal network",
+      macro   => "SSH",
+      target  => "ACCEPT",
+      source  => "loc",
+      dest    => "\$FW";
   }
 }
 
