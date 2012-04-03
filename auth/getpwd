@@ -1,0 +1,35 @@
+#!/bin/bash
+# /etc/puppet/auth/getpwd
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <db> <user>"
+    exit 1
+fi
+
+if [ ! -x /usr/bin/pwgen ]; then
+    echo "missing pwgen!" >&2
+    exit 1
+fi
+
+workdir=`dirname $0`
+workfile="$workdir/passwd_$1"
+[ ! -r $workfile ] && exit 2
+get_name="$2"
+
+# get password from storage
+pwd=$(awk -F: -v name="$get_name" '
+BEGIN      { r = "NOTFOUND" }
+name == $1 { r = $2         }
+END        { printf "%s", r }
+' "$workfile")
+
+if [ "$pwd" = "NOTFOUND" ]; then
+    # generate new password & store it
+    len=$((60 + $RANDOM % 9 ))
+    pwd=$(/usr/bin/pwgen -s $len 1)
+
+    echo "${get_name}:${pwd}" >> $workfile
+fi
+
+# echo password (without new line)
+echo -n "$pwd"

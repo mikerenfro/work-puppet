@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Not entirely secure script to handle automatic joining of a
+# Linux/Solaris system onto an AD domain. Should be good enough since
+# the only time we'll be running this is right after a reinstall, and
+# nobody could log into the system anyway.
+
+# Usage: netjoin.sh /path/to/samba/binary/net ad-hostname pdc-hostname
+#
+# Where: /path/to/samba/binary/net -- path to the Samba "net" binary
+#        ad-hostname -- name for Machine account (normally
+#                       `hostname`-linux or `hostname`-solaris)
+#        pdc-hostname -- FQDN for primary domain controller
+
+NET=$1
+SERVER=$2
+HOSTNAME=`facter hostname`-`facter operatingsystem`
+PASSWORD=<%= scope.function_generate("/etc/puppet/auth/getpwd", "ad", "netjoin") %>
+
+${NET} rpc user delete ${HOSTNAME}\$ -U netjoin%${PASSWORD} -S ${SERVER}
+${NET} rpc join -U netjoin%${PASSWORD} -S ${SERVER}
+#/bin/rm -f $0

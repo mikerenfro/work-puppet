@@ -1,0 +1,11 @@
+@echo off
+set CNDC=Users,dc=caedev,dc=local
+set ARGS=-mustchpwd no -canchpwd no -pwdneverexpires yes
+<% ["netjoin", "netauth"].each do |login| -%>
+set USER=<%= login %>
+set PASSWORD=<%= scope.function_generate("/etc/puppet/auth/getpwd", "ad", login) %>
+dsadd user cn=%USER%,cn=%CNDC% -pwd %PASSWORD% %ARGS%
+<% end -%>
+echo "Ready to overwrite script..."
+pause
+echo rem Script overwritten -- delete it to regenerate from puppetmaster > "%~f0"

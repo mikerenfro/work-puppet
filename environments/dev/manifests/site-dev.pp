@@ -50,4 +50,11 @@ node gold {
 node scratchy {
   include ssh
   include root_rsa_id
+  class { 'active_directory::client':
+    dc => "dc.caedev.local"
+  }
+}
+
+node dc {
+  include active_directory::server
 }

@@ -1,0 +1,21 @@
+[libdefaults]
+	default_realm = CAEDEV.LOCAL
+
+# The following krb5.conf variables are only for MIT Kerberos.
+	krb4_config = /etc/krb.conf
+	krb4_realms = /etc/krb.realms
+	kdc_timesync = 1
+	ccache_type = 4
+	forwardable = true
+	proxiable = true
+	allow_weak_crypto = true
+
+[realms]
+	CAEDEV.LOCAL = {
+		kdc = dc.caedev.local
+		admin_server = dc.caedev.local
+	}
+
+[login]
+	krb4_convert = true
+	krb4_get_tickets = false
