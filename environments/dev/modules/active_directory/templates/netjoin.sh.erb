@@ -19,4 +19,4 @@ PASSWORD=<%= scope.function_generate("/etc/puppet/auth/getpwd", "ad", "netjoin")
 
 ${NET} rpc user delete ${HOSTNAME}\$ -U netjoin%${PASSWORD} -S ${SERVER}
 ${NET} rpc join -U netjoin%${PASSWORD} -S ${SERVER}
-#/bin/rm -f $0
+/bin/rm -f $0
