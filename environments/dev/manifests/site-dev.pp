@@ -6,6 +6,7 @@ node router {
   include shorewall
   include maradns # also includes system_database
   include dhcpd # also includes system_database
+  include debian_installer
   shorewall::action { "puppetd-router.caedev.local":
     comment      => "Allow puppetd traffic",
     action       => "ACCEPT",
@@ -16,26 +17,14 @@ node router {
     dest_ports   => "8140:8141"
   }
   shorewall::macro {
-    "dns-router.caedev.local":
-      comment => "# Allow DNS server on router",
-      macro   => "DNS",
-      target  => "ACCEPT",
-      source  => "loc",
-      dest    => "\$FW";
-    "tftpd-router.caedev.local":
-      comment => "# Allow TFTP server on router",
-      macro   => "TFTP",
-      target  => "ACCEPT",
-      source  => "loc",
-      dest    => "\$FW";
     "www-client-router.caedev.local":
-      comment => "# Allow http access from router (for package installation)",
+      comment => "Allow http access from router (for package installation)",
       macro   => "Web",
       target  => "ACCEPT",
       source  => "\$FW",
       dest    => "net";
     "ssh-router.caedev.local":
-      comment => "# Allow ssh access from internal network",
+      comment => "Allow ssh access from internal network",
       macro   => "SSH",
       target  => "ACCEPT",
       source  => "loc",

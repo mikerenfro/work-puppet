@@ -15,4 +15,12 @@ class maradns {
                      File["dns-regen"] ],
     refreshonly => true;
   }
+  @@shorewall::macro {
+    "dns-${fqdn}":
+      comment => "Allow DNS server on ${fqdn}",
+      macro   => "DNS",
+      target  => "ACCEPT",
+      source  => "loc",
+      dest    => "\$FW";
+  }
 }

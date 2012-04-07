@@ -1,0 +1,24 @@
+label onedrive
+        menu label ^CAE Install (1 drive)
+        kernel d-i/i386/linux
+        append initrd=d-i/i386/initrd.gz auto url=<%= scope.function_generate("/etc/puppet/auth/getpwd", "urls", "d-i") %>squeeze/./onedrive.cfg console-keymaps-at/keymap=us locale=en_US interface=eth0 netcfg/dhcp_timeout=60 auto=true priority=critical --
+
+label twodrive
+        menu label ^CAE Install (2 drives)
+        kernel d-i/i386/linux
+        append initrd=d-i/i386/initrd.gz auto url=<%= scope.function_generate("/etc/puppet/auth/getpwd", "urls", "d-i") %>squeeze/./twodrive.cfg console-keymaps-at/keymap=us locale=en_US interface=eth0 netcfg/dhcp_timeout=60 auto=true priority=critical --
+
+label dualboot
+        menu label ^CAE Install (dual-boot)
+        kernel d-i/i386/linux
+        append initrd=d-i/i386/initrd.gz auto url=<%= scope.function_generate("/etc/puppet/auth/getpwd", "urls", "d-i") %>squeeze/./dualboot.cfg console-keymaps-at/keymap=us locale=en_US interface=eth0 netcfg/dhcp_timeout=60 auto=true priority=critical --
+
+label pxedualboot
+        menu label ^CAE Install (PXE dual-boot)
+        kernel d-i/i386/linux
+        append initrd=d-i/i386/initrd.gz auto url=<%= scope.function_generate("/etc/puppet/auth/getpwd", "urls", "d-i") %>squeeze/./pxedualboot.cfg console-keymaps-at/keymap=us locale=en_US interface=eth0 netcfg/dhcp_timeout=60 auto=true priority=critical --
+
+label caedev
+        menu label ^CAEDev Install (Mike's VBox Installs)
+        kernel d-i/i386/linux
+        append initrd=d-i/i386/initrd.gz auto url=<%= scope.function_generate("/etc/puppet/auth/getpwd", "urls", "d-i") %>squeeze/./caedev.cfg console-keymaps-at/keymap=us locale=en_US interface=eth0 netcfg/dhcp_timeout=60 auto=true priority=critical --
