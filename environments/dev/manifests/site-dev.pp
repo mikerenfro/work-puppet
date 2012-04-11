@@ -42,8 +42,19 @@ node scratchy {
   class { 'active_directory::client':
     dc => "dc.caedev.local"
   }
+  include nfs::client
+}
+
+node files {
+  include ssh
+  include root_rsa_id
+  class { 'active_directory::client':
+    dc => "dc.caedev.local"
+  }
+  include nfs::server
 }
 
 node dc {
   include active_directory::server
+  include kdc
 }

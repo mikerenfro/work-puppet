@@ -16,3 +16,4 @@
    winbind nested groups = yes
    winbind enum users = yes
    winbind enum groups = yes
+   kerberos method = secrets and keytab

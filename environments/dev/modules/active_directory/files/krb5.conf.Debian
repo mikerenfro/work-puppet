@@ -1,5 +1,6 @@
 [libdefaults]
 	default_realm = CAEDEV.LOCAL
+	default = CAEDEV.LOCAL
 
 # The following krb5.conf variables are only for MIT Kerberos.
 	krb4_config = /etc/krb.conf
@@ -12,9 +13,13 @@
 
 [realms]
 	CAEDEV.LOCAL = {
-		kdc = dc.caedev.local
-		admin_server = dc.caedev.local
+		kdc = dc.caedev.local:88
+		default_domain = caedev.local
 	}
+
+[domain_realm]
+	.caedev.local = CAEDEV.LOCAL
+	caedev.local = CAEDEV.LOCAL
 
 [login]
 	krb4_convert = true
