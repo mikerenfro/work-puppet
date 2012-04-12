@@ -45,6 +45,15 @@ node scratchy {
   include nfs::client
 }
 
+node itchy {
+  include ssh
+  include root_rsa_id
+  class { 'active_directory::client':
+    dc => "dc.caedev.local"
+  }
+  include nfs::client
+}
+
 node files {
   include ssh
   include root_rsa_id
