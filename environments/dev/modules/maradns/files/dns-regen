@@ -46,6 +46,7 @@ _msdcs.% ns dc.% ~
 _sites.% ns dc.% ~
 forestdnszones.% ns dc.% ~
 domaindnszones.% ns dc.% ~
+% mx 10 mail.% ~
 """
 
 # double up the literal percents here. Didn't have to do that on the

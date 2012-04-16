@@ -1,0 +1,25 @@
+# Postfix for mail hub
+# - Delivery via spamassassin and Dovecot sieve
+# - Allows for delivery to username+localpart@domain
+alias_database = hash:/etc/aliases
+alias_maps = hash:/etc/aliases
+append_dot_mydomain = no
+biff = no
+config_directory = /etc/postfix
+inet_interfaces = all
+inet_protocols = ipv4
+recipient_delimiter = +
+mailbox_command = /usr/bin/spamc -x -s 100000000 -e /usr/lib/dovecot/deliver -a "$RECIPIENT" || exit 75
+mailbox_size_limit = 0
+mydestination = mail.<%= domain %>, localhost.<%= domain %>, , localhost, <%= domain %>
+myhostname = <%= fqdn %>
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0.0/24
+myorigin = /etc/mailname
+readme_directory = no
+relayhost = 
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtpd_use_tls = yes

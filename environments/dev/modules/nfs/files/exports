@@ -1,2 +1,3 @@
+# Enable Kerberos-authenticated mounts for everyone
 /export      gss/krb5(rw,sync,no_subtree_check,fsid=0,crossmnt)
 /export/home gss/krb5(rw,sync,no_subtree_check)

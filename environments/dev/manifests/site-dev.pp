@@ -67,3 +67,31 @@ node dc {
   include active_directory::server
   include kdc
 }
+
+node mail {
+  include ssh
+  include root_rsa_id
+  class { 'active_directory::client':
+    dc => "dc.caedev.local"
+  }
+  include nfs::client
+  include postfix
+  include dovecot
+  include spamassassin
+
+  file { "/home/CAEDEV":
+    ensure => directory,
+    owner  => "root",
+    group  => "root",
+    mode   => 0755;
+  }
+  mount { "CAEDEV":
+    device  => "files.caedev.local:/home/CAEDEV",
+    name    => "/home/CAEDEV",
+    ensure  => mounted,
+    fstype  => "nfs4",
+    require => [ File["/home/CAEDEV"], Class["nfs::client"] ],
+    options => "sec=krb5"
+  }
+    
+}

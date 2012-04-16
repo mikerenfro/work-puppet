@@ -1,0 +1,20 @@
+protocols = imap imaps
+log_timestamp = "%Y-%m-%d %H:%M:%S "
+mail_location = maildir:~/Maildir
+mail_privileged_group = mail
+protocol lda {
+  postmaster_address = postmaster@<%= domain %>
+  mail_plugins = sieve
+}
+auth default {
+  mechanisms = plain
+  passdb pam {
+    args = session=yes
+  }
+  userdb passwd {
+  }
+  user = root
+}
+plugin {
+  sieve=~/.dovecot.sieve
+}
